@@ -1,0 +1,389 @@
+[
+    {
+        "name": "Polka Face Mask Face Mask",
+        "risk": "high",
+        "high": [
+            "Dimethicone",
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "To\u0142pa Dermo Face Lipidro Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "SEPHORA COLLECTION Face Mask Pearl  Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "SEPHORA COLLECTION Face Mask Rose Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Kerello Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Dr. Barbara St\u00fcrm Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Inuwet Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Blu Atlas Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Fiorevita Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Aarong Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "grace & stella Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Duetus Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Claire de Nature Face Mask",
+        "risk": "medium",
+        "high": [],
+        "med": [
+            "Ammonium Acryloyldimethyltaurate/\u200bVP Copolymer"
+        ],
+        "image": ""
+    },
+    {
+        "name": "Ziaja Face Mask",
+        "risk": "high",
+        "high": [
+            "Polyacrylamide"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Australian bodycare Face Mask",
+        "risk": "high",
+        "high": [
+            "Acrylates Copolymer",
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Loveli Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "The Face Shop Mask.Lab Chitosan Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Biotulin Bio Cellulose Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Afrodita professional Face Mask Melon Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Face Reality Hydracalm Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "The Face Shop Mask.Lab Double Wrap Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "the mask dr. Face Sheet Mask Retinol",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "the mask dr. Face Sheet Mask Niacinamide",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "the mask dr. Face Sheet Mask Propolis",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "the mask dr. Face Sheet Mask Peptides",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "the mask dr. Face Sheet Mask Probiotics",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "the mask dr. Face Sheet Mask Bakuchiol",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "the mask dr. Face Sheet Mask Squalane",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Lululun Face Mask (Blue)",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Karuna Brightening Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Karuna Exfoliating Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Lululun Face Mask White",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Sephora Coconut Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "HydroPeptide Miracle Face Mask",
+        "risk": "high",
+        "high": [
+            "Dimethicone",
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "KOCOSTAR Camo Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Karuna Clarifying Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Ayumi Turmeric Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Anatomicals Mattifying Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Karuna Hydrating Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Lush Oatifix Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Horace Purifying Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "GALLIN\u00c9E Face Mask & Scrub",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Vitamasques Pomegranate Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Lesse Bioactive Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Lanocreme Brightening Face Mask",
+        "risk": "high",
+        "high": [
+            "Polyacrylamide"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Lidherma Skinbioma Face Mask",
+        "risk": "high",
+        "high": [
+            "Dimethicone"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Fresh Rose Face Mask",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "innisfree Lime Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Sealuxe Alabaster Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Sealuxe Charcoal Face Mask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    }
+]
