@@ -6,14 +6,24 @@ const path = require("path");
 const mongoose = require("mongoose");
 require("dotenv").config();
 const ScraperResult = require("./models/ScraperResult");
+const authRoutes = require("./routes/auth");
 
 const app = express();
-app.use(cors());
+
+// Configure CORS to allow credentials and specific origin
+app.use(cors({
+    origin: 'http://localhost:3001', // Your frontend URL
+    credentials: true
+}));
+
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.error("MongoDB connection error:", err));
+
+// Use authentication routes
+app.use('/api/auth', authRoutes);
 
 app.post("/api/submit_product", async (req, res) => {
     const { name } = req.body;
