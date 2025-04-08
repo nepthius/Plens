@@ -1,403 +1,69 @@
 [
     {
-        "name": "Hair Gain Hair Mask",
+        "name": "Dermaroller Facemask",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "Byphasse Hair Mask Dry Hair",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "Hair biology Hair Thickening Treatment",
+        "name": "Business Bombshells Pink Facemask",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "The hair addict Hair Mask",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Gk hair Cashmere Hair Cream",
+        "name": "Clinical Works Rosehip Facemask",
         "risk": "high",
         "high": [
-            "Dimethicone"
+            "Polyacrylamide",
+            "Carbomer"
         ],
         "med": [],
         "image": ""
     },
     {
-        "name": "T444Z Hair Products Hair Food",
+        "name": "CadeaVera Gebrannte Mandeln Facemask",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "ZARA Hair Light Hair Balm",
+        "name": "TonyMoly Tako Pore Bubble Facemask",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Superdrug We Heart Facemask Trio",
         "risk": "high",
         "high": [
-            "Dimethicone",
-            "Polyacrylamide"
+            "Carbomer"
         ],
         "med": [],
         "image": ""
     },
     {
-        "name": "Xpel hair care Xhc Hair Care Hemp Hair Mask",
+        "name": "Nykaa Go For Glow Age Rewind Facemask",
         "risk": "high",
         "high": [
-            "Dimethicone"
+            "PVP"
         ],
         "med": [],
         "image": ""
     },
     {
-        "name": "Mon platin Hair Mask Smoother Hair",
-        "risk": "high",
-        "high": [
-            "Dimethicone"
-        ],
-        "med": [
-            "Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "Beauty Bay Hair Density Hair Serum",
+        "name": "Revolution Skincare Maskcare Under Facemask Hydrating & Uplifting Mist",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "Garnier Hair Mask For Dry Damaged Hair Papaya Hair Food",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Sisley Hair Rituel Protective Hair Fluid",
-        "risk": "high",
-        "high": [
-            "Dimethicone"
-        ],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Hair Restoration Laboratories Hair Restore Shampoo",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "L'Oreal Extraordinary Hair Oil Coloured Hair",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Quality Hair Protex+Nourishing Hair Mask",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "MD hair Customised Hair Care Serum",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "n\u00f8 bad hair Hair Styling Clay",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Hair Syrup Grows-mary Hair Syrup",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Hiskin Crazy Hair Watermelon Hair Mask",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Makarizo Hair Energy Hair & Body Fragrance",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Aussie Hair Hug Reconstructor Hair Mask",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Bis-Aminopropyl Dimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "Hair Treats Hair Spa Coco Milk",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Revolution Hair Ceramides Hydrating Hair Mask",
-        "risk": "high",
-        "high": [
-            "Dimethicone"
-        ],
-        "med": [
-            "Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "Hair Energy Whole Blends Hair Shampoo",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Hair Slayer",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Dr. Sant\u00e9 Anti Hair Loss Hair Mask",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Lee Stafford Fresh Hair Replenishing Hair Mask",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Dabur Vatika Hair Fall Control Hair Mask",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "ICE-Professional Refill My Hair Hair Mask",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Bis-Cetearyl Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "ICE-Professional Tame My Hair Hair Mask",
-        "risk": "high",
-        "high": [
-            "Dimethicone"
-        ],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "ICE-Professional Repair My Hair Hair Mask",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Bis-Cetearyl Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "Rapunzel Of Sweden Hair Mask For Hair Extensions",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "hif (Hair is Fabric) Curly Hair Support",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Brave new hair Shampoo For Oily Hair",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Sisley Hair Rituel Regenerating Hair Care Mask",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "Hair Food Avocado And Argan Hair Oil",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Hair + She\u2019z Just For Me Hair Pack",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "crumb. Hair Mask Conditioner For Vitreous Hair",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Lab On Hair Hair Fall Control Shampoo",
-        "risk": "high",
-        "high": [
-            "Acrylates Copolymer",
-            "Dimethicone"
-        ],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Eva's Hair Belle-anse Moisturizing Hair Cream",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "BABE Avo Babe Hair Day Hair Masque",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "Hiskin Crazy Hair Chelating Hair Conditioner Pineapple",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Hiskin Crazy Hair Milk Chocolate Hair Mask",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "KMS Hair Stay Firm Finishing Hair Spray",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Acrylates/\u200bT-Butylacrylamide Copolymer"
-        ],
-        "image": ""
-    },
-    {
-        "name": "StBotanica Go Anti-hair Fall Hair Shampoo",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "innovist Hair Growth & Deep Nourishment Hair Oil",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "HAIRWONDER Hair Repair Gloss Shampoo Brown Hair",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Lab On Hair Hair Fall Control Ampoule",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Gk hair Leave In Conditioner Hair Spray",
-        "risk": "medium",
-        "high": [],
-        "med": [
-            "Amodimethicone"
-        ],
-        "image": ""
-    },
-    {
-        "name": "girl and hair Scalp & Hair Strengthening Oil",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Hydrolyzed Hair Keratin",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Pseudozyma Epicola/\u200bArgania Spinosa Kernel Oil/\u200bCamellia Japonica Seed Oil/\u200bCamellia Sinensis Seed Oil/\u200bSunflower Seed Oil/\u200bSweet Almond Oil Ferment Extract Filtrate",
+        "name": "Revolution Skincare Honey & Oatmeal Nourish & Glow Face Mask (Honey & Oatmeal, Nourish & Glow Facemask)",
         "risk": "low",
         "high": [],
         "med": [],
