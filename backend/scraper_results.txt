@@ -1,44 +1,34 @@
 [
     {
-        "name": "Dermaroller Facemask",
+        "name": "Soraya I Love Serum Normalising Serum",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "Business Bombshells Pink Facemask",
+        "name": "Soraya I Love Serum Moisturising Serum",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "Clinical Works Rosehip Facemask",
-        "risk": "high",
-        "high": [
-            "Polyacrylamide",
-            "Carbomer"
-        ],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CadeaVera Gebrannte Mandeln Facemask",
+        "name": "Soraya I Love Serum Brightening Serum",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "TonyMoly Tako Pore Bubble Facemask",
+        "name": "Soraya I Love Serum Regenerating Serum",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "Superdrug We Heart Facemask Trio",
+        "name": "Soraya's Vitamin c serum",
         "risk": "high",
         "high": [
             "Carbomer"
@@ -47,23 +37,103 @@
         "image": ""
     },
     {
-        "name": "Nykaa Go For Glow Age Rewind Facemask",
-        "risk": "high",
-        "high": [
-            "PVP"
-        ],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Revolution Skincare Maskcare Under Facemask Hydrating & Uplifting Mist",
+        "name": "Soraya I Love Serum Smoothing",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "Revolution Skincare Honey & Oatmeal Nourish & Glow Face Mask (Honey & Oatmeal, Nourish & Glow Facemask)",
+        "name": "Soraya Just Glow Beautifying Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Rosarium Smoothing Rose Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Beauty Rx Normalizuj\u0105ce Serum Wyciszaj\u0105ce",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Skin Boost Serum For Discoloration",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Taurine Energy Wake-Up Serum",
+        "risk": "high",
+        "high": [
+            "Dimethicone"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Beauty Rx Brightening Corrective Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Skin Boost Regenerating Strengthening Serum",
+        "risk": "high",
+        "high": [
+            "Dimethicone",
+            "Carbomer"
+        ],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Probio Care Prebiotic Soothing Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Skin Boost Moisturizing Soothing Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Beauty Rx Ultra Moisturizing Soothing Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Beauty Alphabet Vitamin A 2in1 Cream + Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Beauty Alphabet Vitamin B 2in1 Normalizing Cream + Serum",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "Soraya Beauty Alphabet Vitamin C 2in1 Illuminating Cream + Serum",
         "risk": "low",
         "high": [],
         "med": [],

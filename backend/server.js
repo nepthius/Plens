@@ -175,6 +175,165 @@ app.get("/api/user/profile", authMiddleware, async (req, res) => {
     }
 });
 
+//product
+app.post("/api/user/products", authMiddleware, async (req, res) => {
+    const { name } = req.body;
+
+    if (!name || typeof name !== "string") {
+        return res.status(400).json({ message: "Product name is required." });
+    }
+
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: "User not found." });
+
+        const existingMatch = await ScraperResult.findOne({
+            name: { $regex: name, $options: "i" }
+        });
+
+        let productToSave;
+
+        if (existingMatch) {
+            console.log("Using cached scraper result");
+            productToSave = {
+                name: existingMatch.name,
+                risk: existingMatch.risk,
+                high: existingMatch.high,
+                med: existingMatch.med,
+            };
+        } else {
+            console.log("No cached result. Running scraper...");
+            const scraperScript = path.join(__dirname, "../scraper/scraper.py");
+
+            const output = await new Promise((resolve, reject) => {
+                exec(`python3 ${scraperScript} "${name}"`, (error, stdout, stderr) => {
+                    if (error || stderr) {
+                        return reject(error || stderr);
+                    }
+                    resolve(stdout);
+                });
+            });
+
+            const results = JSON.parse(output);
+            const scraped = results[0];
+
+            await ScraperResult.create(scraped);
+
+            productToSave = {
+                name: scraped.name || name,
+                risk: scraped.risk,
+                high: scraped.high,
+                med: scraped.med,
+            };
+        }
+
+        user.products.push(productToSave);
+        await user.save();
+
+        res.status(201).json({ message: "Product added", product: productToSave });
+    } catch (err) {
+        console.error("Error adding product:", err);
+        res.status(500).json({ message: "Server error." });
+    }
+});
+
+
+
+app.get("/api/user/products", authMiddleware, async (req, res) => {
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        res.json({ products: user.products });
+    } catch (err) {
+        console.error("Error fetching products:", err);
+        res.status(500).json({ message: "Failed to retrieve products." });
+    }
+});
+
+app.delete("/api/user/products/:productId", authMiddleware, async (req, res) => {
+    const { productId } = req.params;
+
+    try {
+        const user = await User.findById(req.user.userId);
+        if (!user) return res.status(404).json({ message: "User not found." });
+        user.products = user.products.filter(
+            (product) => product._id.toString() !== productId
+        );
+
+        await user.save();
+        res.json({ message: "Product deleted successfully." });
+    } catch (err) {
+        console.error("Error deleting product:", err);
+        res.status(500).json({ message: "Failed to delete product." });
+    }
+});
+
+app.get("/api/products/alternatives", async (req, res) => {
+    const { name, currentRisk } = req.query;
+  
+    if (!name || !currentRisk) {
+      return res.status(400).json({ message: "Missing name or currentRisk." });
+    }
+  
+    const riskRank = { low: 1, medium: 2, high: 3 };
+    const words = name.toLowerCase().split(" ");
+    const categoryKeywords = ["mask", "serum", "cleanser", "oil", "toner", "moisturizer", "facemask", "gel", "exfoliator", "cream"];
+    const detectedCategory = words.find((word) =>
+      categoryKeywords.some((cat) => word.includes(cat))
+    );
+    const category = detectedCategory || words.find((w) => w.length > 5) || words[words.length - 1];
+  
+    console.log("Searching alternatives in category:", category);
+  
+    try {
+      const lowerRiskProducts = await ScraperResult.find({
+        risk: { $ne: currentRisk },
+        name: { $regex: new RegExp(category, "i") }
+      });
+  
+
+      const filtered = lowerRiskProducts.filter(
+        (p) => riskRank[p.risk] < riskRank[currentRisk]
+      );
+  
+      if (filtered.length > 0) {
+        return res.json({ results: filtered.slice(0, 5) });
+      }
+  
+      console.log("No alternatives found in DB. Running scraper...");
+  
+      const scraperScript = path.join(__dirname, "../scraper/scraper.py");
+      const output = await new Promise((resolve, reject) => {
+        exec(`python3 ${scraperScript} "${name}"`, (error, stdout, stderr) => {
+          if (error || stderr) {
+            return reject(error || stderr);
+          }
+          resolve(stdout);
+        });
+      });
+  
+      const scraped = JSON.parse(output);
+      const saferScraped = scraped.filter(
+        (p) => riskRank[p.risk] < riskRank[currentRisk]
+      );
+  
+      if (saferScraped.length > 0) {
+        await ScraperResult.insertMany(saferScraped);
+      }
+  
+      res.json({ results: saferScraped.slice(0, 5) });
+    } catch (err) {
+      console.error("Alternative search error:", err);
+      res.status(500).json({ message: "Failed to find alternatives." });
+    }
+  });
+  
+  
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

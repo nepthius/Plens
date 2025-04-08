@@ -233,3 +233,11 @@ select:focus {
   box-shadow: none;
   transform: none;
 }
+
+.summary-card {
+  background-color: #f2fff0;
+  border: 1px solid #cceccc;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
