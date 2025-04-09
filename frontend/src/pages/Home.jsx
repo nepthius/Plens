@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../App.css";
+import IngredientTooltip from "../components/IngredientTooltip";
+
 
 function App() {
     const [productName, setProductName] = useState("");
@@ -90,7 +92,6 @@ function App() {
 
             <h2 className="results-header">Search Results</h2>
 
-            {/* Filter + Sort Controls */}
             <div className="filter-sort-container">
                 <div className="filter-dropdown">
                     <label>Filter by Risk: </label>
@@ -131,12 +132,29 @@ function App() {
                                         <td>{result.name}</td>
                                         <td>{riskLevel}</td>
                                         <td>
-                                            {result.high.length > 0 && (
-                                                <div><strong>High-Risk:</strong> {result.high.join(", ")}</div>
+                                        {result.high.length > 0 && (
+                                            <div>
+                                                <strong>High-Risk:</strong>{" "}
+                                                {result.high.map((ing, idx) => (
+                                                <span key={idx}>
+                                                    <IngredientTooltip name={ing} />
+                                                    {idx < result.high.length - 1 && ", "}
+                                                </span>
+                                                ))}
+                                            </div>
                                             )}
-                                            {result.med.length > 0 && (
-                                                <div><strong>Medium-Risk:</strong> {result.med.join(", ")}</div>
-                                            )}
+
+                                        {result.med.length > 0 && (
+                                        <div>
+                                            <strong>Medium-Risk:</strong>{" "}
+                                            {result.med.map((ing, idx) => (
+                                            <span key={idx}>
+                                                <IngredientTooltip name={ing} />
+                                                {idx < result.med.length - 1 && ", "}
+                                            </span>
+                                            ))}
+                                        </div>
+                                        )}
                                             {result.high.length === 0 && result.med.length === 0 && (
                                                 <div><strong>Low Risk</strong></div>
                                             )}

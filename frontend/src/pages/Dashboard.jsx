@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import "../styles/Dashboard.css"
+import IngredientTooltip from "../components/IngredientTooltip";
 
 const Dashboard = () => {
   const { user, token } = useAuth();
@@ -225,12 +226,30 @@ const Dashboard = () => {
         >        
             <strong>{prod.name}</strong> – Risk: {prod.risk || "unknown"}
             <ul>
-              {prod.high?.length > 0 && (
-                <li><strong>High-Risk Ingredients:</strong> {prod.high.join(", ")}</li>
-              )}
-              {prod.med?.length > 0 && (
-                <li><strong>Medium-Risk Ingredients:</strong> {prod.med.join(", ")}</li>
-              )}
+            {prod.high?.length > 0 && (
+                <li>
+                    <strong>High-Risk Ingredients:</strong>{" "}
+                    {prod.high.map((ing, idx) => (
+                    <span key={idx}>
+                        <IngredientTooltip name={ing} />
+                        {idx < prod.high.length - 1 && ", "}
+                    </span>
+                    ))}
+                </li>
+                )}
+
+            {prod.med?.length > 0 && (
+            <li>
+                <strong>Medium-Risk Ingredients:</strong>{" "}
+                {prod.med.map((ing, idx) => (
+                <span key={idx}>
+                    <IngredientTooltip name={ing} />
+                    {idx < prod.med.length - 1 && ", "}
+                </span>
+                ))}
+            </li>
+            )}
+
               {(!prod.high?.length && !prod.med?.length) && (
                 <li>No flagged ingredients</li>
               )}
