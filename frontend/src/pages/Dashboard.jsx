@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import "../styles/Dashboard.css"
 
 const Dashboard = () => {
   const { user, token } = useAuth();
@@ -8,6 +9,8 @@ const Dashboard = () => {
   const [productName, setProductName] = useState("");
   const [savedProducts, setSavedProducts] = useState([]);
   const [message, setMessage] = useState("");
+  const [suggestions, setSuggestions] = useState({});
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -50,22 +53,76 @@ const Dashboard = () => {
     }
   };
 
-  const findAlternatives = async (name, currentRisk) => {
-    const res = await fetch(
-      `/api/products/alternatives?name=${encodeURIComponent(name)}&currentRisk=${currentRisk}`
-    );
+  const handleReplace = async (originalId, newProduct) => {
+    try {
+      await fetch(`/api/user/products/${originalId}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
   
-    const data = await res.json();
-    if (res.ok) {
-      alert(
-        data.results.length > 0
-          ? `Suggested safer alternatives:\n\n${data.results.map(p => `• ${p.name} (Risk: ${p.risk})`).join("\n")}`
-          : "No lower-risk alternatives found."
-      );
-    } else {
-      alert(data.message || "Error finding alternatives.");
+      const res = await fetch("/api/user/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ name: newProduct.name }),
+      });
+  
+      const data = await res.json();
+      if (res.ok) {
+        setSavedProducts((prev) =>
+          prev
+            .filter((p) => p._id !== originalId)
+            .concat(data.product)
+        );
+        setSuggestions((prev) => {
+          const copy = { ...prev };
+          delete copy[originalId];
+          return copy;
+        });
+      }
+    } catch (err) {
+      console.error("Replace failed:", err);
+      setMessage("Failed to replace product.");
     }
   };
+  
+  const findAlternatives = async (name, currentRisk, originalId) => {
+    if (suggestions[originalId]) {
+      setSuggestions((prev) => {
+        const copy = { ...prev };
+        delete copy[originalId];
+        return copy;
+      });
+      return;
+    }
+  
+    try {
+      const res = await fetch(
+        `/api/products/alternatives?name=${encodeURIComponent(name)}&currentRisk=${currentRisk}`
+      );
+      const data = await res.json();
+  
+      if (res.ok && data.results.length > 0) {
+        setSuggestions((prev) => ({
+          ...prev,
+          [originalId]: data.results,
+        }));
+      } else {
+        setSuggestions((prev) => ({
+          ...prev,
+          [originalId]: [],
+        }));
+        setMessage("No lower-risk alternatives found.");
+      }
+    } catch (err) {
+      console.error("Error finding alternatives:", err);
+      setMessage("Error finding alternatives.");
+    }
+  };
+  
+  
   
 
   const getRiskCount = (riskLevel) => {
@@ -120,9 +177,10 @@ const Dashboard = () => {
   };
 
   return (
-    <div style={{ padding: "2rem" }}>
+    <div className="dashboard-container">
       <h2>{user?.username}'s Dashboard</h2>
-      <form onSubmit={handleAddProduct}>
+  
+      <form onSubmit={handleAddProduct} className="add-form">
         <input
           type="text"
           placeholder="Enter skincare product"
@@ -132,63 +190,88 @@ const Dashboard = () => {
         />
         <button type="submit">Add</button>
       </form>
+  
       {message && <p>{message}</p>}
-
-     
-        {/* 🧠 Summary Section */}
-        
-        {savedProducts.length > 0 && (
-        <div className = "summary-card" style={{ marginTop: "2rem", marginBottom: "1rem" }}>
-            <h3>Summary</h3>
-            <p>
+  
+      {savedProducts.length > 0 && (
+        <div className="summary-card">
+          <h3>Summary</h3>
+          <p>
             You’ve saved {savedProducts.length} product{savedProducts.length !== 1 ? "s" : ""}.
-            </p>
-
-            <p>
+          </p>
+          <p>
             {getRiskCount("high")} high-risk, {getRiskCount("medium")} medium-risk, {getRiskCount("low")} low-risk products.
-            </p>
-
-            {topIngredients.length > 0 && (
+          </p>
+          {topIngredients.length > 0 && (
             <p>
-                Most flagged ingredients: <strong>{topIngredients.slice(0, 3).join(", ")}</strong>
+              Most flagged ingredients: <strong>{topIngredients.slice(0, 3).join(", ")}</strong>
             </p>
-            )}
+          )}
         </div>
-        )}
-     <h3>My Skincare Products:</h3>
-      <ul>
+      )}
+  
+      <h3>My Skincare Products:</h3>
+      <ul style={{ listStyle: "none", padding: 0 }}>
         {savedProducts.map((prod) => (
-            <li key={prod._id}>
+          <li
+          key={prod._id}
+          className={`product-card ${
+            prod.risk === "high"
+              ? "high-risk"
+              : prod.risk === "medium"
+              ? "medium-risk"
+              : "low-risk"
+          }`}
+        >        
             <strong>{prod.name}</strong> – Risk: {prod.risk || "unknown"}
             <ul>
-                {prod.high?.length > 0 && (
+              {prod.high?.length > 0 && (
                 <li><strong>High-Risk Ingredients:</strong> {prod.high.join(", ")}</li>
-                )}
-                {prod.med?.length > 0 && (
+              )}
+              {prod.med?.length > 0 && (
                 <li><strong>Medium-Risk Ingredients:</strong> {prod.med.join(", ")}</li>
-                )}
-                {(!prod.high?.length && !prod.med?.length) && (
+              )}
+              {(!prod.high?.length && !prod.med?.length) && (
                 <li>No flagged ingredients</li>
-                )}
+              )}
             </ul>
+            {(prod.high?.length > 0 || prod.med?.length > 0) && (
             <button
-                style={{ marginTop: "0.25rem" }}
-                onClick={() => findAlternatives(prod.name, prod.risk)}
-                >
-                🔄 Find Lower-Risk Alternative
+                className="alter"
+                onClick={() => findAlternatives(prod.name, prod.risk, prod._id)}
+            >
+                {suggestions[prod._id] ? "Hide Alternatives" : "Find Lower-Risk Alternative"}
             </button>
+            )}
 
 
-            <button onClick={() => handleDelete(prod._id)} style={{ marginTop: "0.5rem" }}>
-                🗑 Delete
+            {suggestions[prod._id] && (
+            <div className="suggestions-box">
+                <p><strong>Suggested Alternatives:</strong></p>
+                <ul style={{ paddingLeft: "1rem" }}>
+                {suggestions[prod._id].map((alt, idx) => (
+                    <li key={idx}>
+                    <span>{alt.name} (Risk: {alt.risk}) </span>
+                    <button onClick={() => handleReplace(prod._id, alt)}>Replace</button>
+                    </li>
+                ))}
+                </ul>
+            </div>
+            )}
+
+
+            <button
+              className="delete-button"
+              onClick={() => handleDelete(prod._id)}
+            >
+              Delete
             </button>
-            </li>
+          </li>
         ))}
-        </ul>
-
-
+      </ul>
     </div>
   );
+  
 };
 
 export default Dashboard;

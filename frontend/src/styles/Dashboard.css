@@ -1,0 +1,158 @@
+.dashboard-container button {
+    all: unset; 
+    font-size: 0.95rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    background-color: #eeeeee;
+    color: #222;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    box-shadow: none;
+    font-weight: 500;
+  }
+
+.dashboard-container {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: system-ui, sans-serif;
+  }
+  
+  .dashboard-container h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .add-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .add-form input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+  
+  .add-form button {
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    background-color: #4caf50;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease;
+  }
+  
+  .add-form button:hover {
+    background-color: #45a049;
+  }
+  
+  .summary-card {
+    background-color: #e8fce8;
+    border: 1px solid #b6eab6;
+    padding: 1.25rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+  
+  .product-card {
+    background-color: #f9f9f9;
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .product-card strong {
+    font-size: 1.1rem;
+  }
+  
+  .product-card ul {
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .product-card button {
+    margin-top: 0.75rem;
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border: none;
+    border-radius: 6px;
+    background-color: #eee;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  
+  .product-card button:hover {
+    background-color: #ddd;
+  }
+  
+  .delete-button {
+    background-color: #ff5252;
+    color: white;
+  }
+  
+
+  .dashboard-container .alter {
+    background-color: #83d779;
+  }
+  
+  .dashboard-container button:hover {
+    background-color: #15ad04;
+  }
+  
+  .dashboard-container .delete-button {
+    background-color: #ff5252;
+    color: white;
+  }
+
+  .dashboard-container .delete-button:hover {
+    background-color: #9d1212;
+  }
+
+
+.product-card.low-risk {
+    background-color: #d5ffcc; 
+    border-color: #7fffa3;
+  }
+  
+  .product-card.medium-risk {
+    background-color: #fff8cc; 
+    border-color: #ffe57f;
+  }
+  
+  .product-card.high-risk {
+    background-color: #ffe6e6; 
+    border-color: #ff9e9e;
+  }
+
+
+  .suggestions-box {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background-color: #f3fef3;
+    border: 1px dashed #9ccc9c;
+    border-radius: 8px;
+  }
+  .suggestions-box ul {
+    margin: 0.25rem 0 0;
+  }
+  .suggestions-box button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 0.85rem;
+    padding: 0.4rem 0.75rem;
+    margin-left: 0.5rem;
+    border-radius: 6px;
+  }
+  .suggestions-box button:hover {
+    background-color: #388e3c;
+  }
+  
+  
