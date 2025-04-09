@@ -1,0 +1,77 @@
+.account-container {
+    padding: 2rem;
+    max-width: 400px;
+    margin: 4rem auto;
+    font-family: system-ui, sans-serif;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  
+  .account-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #2e602f;
+  }
+  
+  .account-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .account-container input {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    background-color: #f9fff9;
+    color: #222;
+    transition: border-color 0.2s ease;
+  }
+  
+  .account-container input:focus {
+    outline: none;
+    border-color: #4caf50;
+  }
+  
+  .account-container button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .account-container button[type="submit"]:hover {
+    background-color: #45a049;
+  }
+  
+  .account-container .link-button {
+    all: unset;
+    color: #4caf50;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+    font-size: 0.95rem;
+  }
+  
+  .account-container .link-button:hover {
+    color: #388e3c;
+  }
+  
+  .account-container p {
+    text-align: center;
+    margin-top: 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .account-container p.error {
+    color: red;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+  
