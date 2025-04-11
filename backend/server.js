@@ -66,6 +66,26 @@ app.post("/api/submit_product", async (req, res) => {
     }
 });
 
+//autocomplete api
+app.get("/api/autocomplete", async (req, res) => {
+    const { q } = req.query;
+    if (!q) {
+      return res.status(400).json({ message: "Query parameter 'q' is required" });
+    }
+  
+    try {
+      const suggestions = await ScraperResult.find({
+        name: { $regex: q, $options: "i" }
+      }).limit(10); // limit the number of results
+  
+      res.json(suggestions);
+    } catch (err) {
+      console.error("Autocomplete error:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+  
+
 app.get("/api/get_scraper_results", async (req, res) => {
     try {
         const results = await ScraperResult.find().sort({ timestamp: -1 }).limit(10);
