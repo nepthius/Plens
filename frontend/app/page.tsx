@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
+import ProductSearchAutocomplete from "../src/components/ProductSearchAutocomplete";
 
 // Create an axios instance with the base URL
 const api = axios.create({
@@ -12,6 +13,9 @@ const api = axios.create({
 });
 
 export default function Home() {
+
+  <ProductSearchAutocomplete />
+  
   const [productName, setProductName] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
   const [scraperResults, setScraperResults] = useState([]);
