@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useMemo, Suspense } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import axios from 'axios'
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select" // Import Select components
 import { Label } from "@/components/ui/label"
 import Link from "next/link" // Import Link
+import { useAuth } from "@/hooks/useAuth"
 
 // --- Interfaces --- 
 interface Ingredient { // Keep this basic for now, structure might change if backend sends data
@@ -48,12 +49,14 @@ const ITEMS_PER_PAGE = 15; // 5 rows * 3 columns
 
 function SearchResults() {
   const searchParams = useSearchParams();
+  const router = useRouter(); // Initialize router
   const query = searchParams.get('query') || "";
+  const { token } = useAuth(); // Get the auth token
 
   const [allResults, setAllResults] = useState<SearchResult[] | null>(null); // Store all fetched results
   const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [currentQuery, setCurrentQuery] = useState<string>(query);
+  const [inputValue, setInputValue] = useState<string>(query); // State for the input field
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filterType, setFilterType] = useState<string>('All'); // State for filtering
   const [sortOrder, setSortOrder] = useState<string>('default'); // State for sorting
@@ -77,7 +80,12 @@ function SearchResults() {
       const backendUrl = "http://localhost:3001/api/submit_product"; 
 
       try {
-        const response = await axios.post<ApiResponse>(backendUrl, { name: query });
+        const response = await axios.post<ApiResponse>(backendUrl, { name: query }, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
         console.log("[DEBUG] Raw API Response:", JSON.stringify(response.data, null, 2));
         setAllResults(response.data.results); // Store all results
         setMessage(response.data.message);
@@ -103,6 +111,11 @@ function SearchResults() {
     };
 
     fetchData();
+  }, [query, token]);
+
+  // Update input value if query param changes externally
+  useEffect(() => {
+    setInputValue(query);
   }, [query]);
 
   const capitalize = (s: string) => s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
@@ -159,20 +172,27 @@ function SearchResults() {
   useEffect(() => {
       setCurrentPage(1);
   }, [filterType, sortOrder]);
-  // ------------------------------------------------------
+
+  const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent full page reload
+    const newQuery = inputValue.trim();
+    if (newQuery) {
+      router.push(`/search?query=${encodeURIComponent(newQuery)}`);
+    }
+  };
 
   return (
     <div className="container px-4 md:px-6 py-12">
       <h1 className="text-3xl font-bold tracking-tight mb-4">Search Results</h1>
 
-      <form className="flex w-full max-w-md items-center space-x-2 mb-8" action="/search" method="GET">
+      <form className="flex w-full max-w-md items-center space-x-2 mb-8" onSubmit={handleSearchSubmit}>
           <Input 
             className="flex-1 bg-white"
-            name="query" 
+            name="query"
             placeholder="Search for another product..." 
             type="search" 
-            defaultValue={currentQuery} 
-            key={query} 
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
           />
           <Button type="submit">
             <Search className="h-4 w-4 mr-2" />

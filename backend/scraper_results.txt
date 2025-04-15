@@ -1,6 +1,27 @@
 [
     {
-        "name": "Mizon Cheese Repair Cream",
+        "name": "CeraVe Sa Cream For Rough & Bumpy Skin",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "CeraVe Sa Lotion For Rough & Bumpy Skin",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "CeraVe Sa Lotion For Rough & Bumpy Skin (Canada)",
+        "risk": "low",
+        "high": [],
+        "med": [],
+        "image": ""
+    },
+    {
+        "name": "CeraVe Sa Cream For Rough And Bumpy Skin",
         "risk": "high",
         "high": [
             "Dimethicone",
@@ -10,44 +31,19 @@
         "image": ""
     },
     {
-        "name": "Complexion boutik Probiotics Cheese Face Cream",
+        "name": "CeraVe Sa Cleanser Bar For Rough & Bumpy Skin",
         "risk": "low",
         "high": [],
         "med": [],
         "image": ""
     },
     {
-        "name": "Complexion boutik Peach Cheese Face Cream",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Complexion boutik Honey Cheese Face Cream With Collagen",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Funny Organix Face cream Mouse Love Story \"Cheese Moon\"",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Complexion boutik Rice Bran Cheese Face Cream With Hyalruonic Acid",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "Quark Cheese",
-        "risk": "low",
-        "high": [],
+        "name": "CeraVe Moisturizing Cream",
+        "risk": "high",
+        "high": [
+            "Carbomer",
+            "Dimethicone"
+        ],
         "med": [],
         "image": ""
     }

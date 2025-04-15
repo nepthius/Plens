@@ -67,9 +67,15 @@ app.post("/api/submit_product", async (req, res) => {
                 const results = JSON.parse(stdout);
                 console.log(`[DEBUG] Parsed results:`, JSON.stringify(results, null, 2));
 
-                await ScraperResult.insertMany(results);
-                console.log("Scraper results saved to MongoDB");
-
+                const val = await ScraperResult.insertMany(results);
+                if(val){
+                    console.log("Scraper results saved to MongoDB");
+                }
+                else{
+                    console.error("[ERROR] Error saving to MongoDB:", err);
+                    res.status(500).json({ message: "Failed to save to MongoDB" });
+                }
+                
                 // Still return original results structure to frontend if needed
                 res.json({ message: "Scraper executed successfully!", results }); 
             } catch (err) {
