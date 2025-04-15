@@ -1,49 +1,8 @@
 [
     {
-        "name": "CeraVe Sa Cream For Rough & Bumpy Skin",
+        "name": "Dermaroller Facemask",
         "risk": "low",
         "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Lotion For Rough & Bumpy Skin",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Lotion For Rough & Bumpy Skin (Canada)",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Cream For Rough And Bumpy Skin",
-        "risk": "high",
-        "high": [
-            "Dimethicone",
-            "Carbomer"
-        ],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Cleanser Bar For Rough & Bumpy Skin",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Moisturizing Cream",
-        "risk": "high",
-        "high": [
-            "Carbomer",
-            "Dimethicone"
-        ],
         "med": [],
         "image": ""
     }

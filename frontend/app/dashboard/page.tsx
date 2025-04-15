@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
-import IngredientTooltip from "@/components/IngredientTooltip";
+import IngredientTooltip from "../components/tooltip";
 
 interface Product {
   _id: string;
