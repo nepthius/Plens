@@ -74,7 +74,7 @@ app.post("/api/submit_product", async (req, res) => {
                 if(val){
                     console.log("Scraper results saved to MongoDB");
                 }
-                }
+                
 
                 if (savedResults.length > 0) {
                     console.log(`[DEBUG] Successfully saved ${savedResults.length} results to MongoDB`);

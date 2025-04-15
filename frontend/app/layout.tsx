@@ -28,23 +28,13 @@ export default function RootLayout({
               <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
                 Built by{" "}
                 <a
-                  href="https://github.com/yourusername"
+                  href="https://github.com/nepthius/Plens"
                   target="_blank"
                   rel="noreferrer"
                   className="font-medium underline underline-offset-4"
                 >
-                  Your Name
+                  The Plens Team
                 </a>
-                . The source code is available on{" "}
-                <a
-                  href="https://github.com/yourusername/plens"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="font-medium underline underline-offset-4"
-                >
-                  GitHub
-                </a>
-                .
               </p>
             </div>
           </div>

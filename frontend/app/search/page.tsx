@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, ChevronLeft, ChevronRight } from "lucide-react"
 import { cn } from "@/lib/utils" // Assuming you have shadcn/ui utils
+import IngredientTooltip from "../components/tooltip";
 import {
   Select,
   SelectContent,
@@ -287,7 +288,11 @@ function SearchResults() {
                         <div className="mb-2">
                           <h4 className="font-semibold text-sm text-red-700">High-Risk Ingredients:</h4>
                           <ul className="list-disc pl-5 text-sm space-y-1 text-red-600">
-                            {result.high.map((ing, index) => <li key={`high-${index}`}>{ing}</li>)}
+                          {result.high.map((ing, index) => (
+                            <li key={`high-${index}`}>
+                              <IngredientTooltip name={ing} />
+                            </li>
+                          ))}
                           </ul>
                         </div>
                       )}
@@ -296,7 +301,12 @@ function SearchResults() {
                         <div className="mb-2">
                           <h4 className="font-semibold text-sm text-yellow-700">Medium-Risk Ingredients:</h4>
                           <ul className="list-disc pl-5 text-sm space-y-1 text-yellow-600">
-                            {result.med.map((ing, index) => <li key={`med-${index}`}>{ing}</li>)}
+                          {result.med.map((ing, index) => (
+                            <li key={`med-${index}`}>
+                              <IngredientTooltip name={ing} />
+                            </li>
+                          ))}
+
                           </ul>
                         </div>
                       )}
