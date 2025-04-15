@@ -63,7 +63,7 @@ export default function ContactPage() {
                   <MapPin className="h-6 w-6 text-green-600 mt-1" />
                   <div>
                     <h3 className="font-semibold">Our Location</h3>
-                    <p className="text-gray-500">123 Eco Street, Green City, 10001</p>
+                    <p className="text-gray-500">The Pittsburgh SDND room!</p>
                   </div>
                 </div>
               </CardContent>
@@ -87,7 +87,7 @@ export default function ContactPage() {
                   <Phone className="h-6 w-6 text-green-600 mt-1" />
                   <div>
                     <h3 className="font-semibold">Call Us</h3>
-                    <p className="text-gray-500">+1 (555) 123-4567</p>
+                    <p className="text-gray-500">911</p>
                   </div>
                 </div>
               </CardContent>
@@ -107,7 +107,7 @@ export default function ContactPage() {
                   <Label htmlFor="firstName">First name</Label>
                   <Input 
                     id="firstName" 
-                    placeholder="John" 
+                    placeholder="Chicken" 
                     required 
                     value={formData.firstName} 
                     onChange={handleInputChange} 
@@ -118,7 +118,7 @@ export default function ContactPage() {
                   <Label htmlFor="lastName">Last name</Label>
                   <Input 
                     id="lastName" 
-                    placeholder="Doe" 
+                    placeholder="Jockey" 
                     required 
                     value={formData.lastName} 
                     onChange={handleInputChange}
@@ -142,7 +142,7 @@ export default function ContactPage() {
                 <Label htmlFor="subject">Subject</Label>
                 <Input 
                   id="subject" 
-                  placeholder="How can we help you?" 
+                  placeholder="How can we help your microplastic journey?" 
                   required 
                   value={formData.subject}
                   onChange={handleInputChange}

@@ -23,7 +23,7 @@ export default function ContactPage() {
                   <MapPin className="h-6 w-6 text-green-600 mt-1" />
                   <div>
                     <h3 className="font-semibold">Our Location</h3>
-                    <p className="text-gray-500">123 Eco Street, Green City, 10001</p>
+                    <p className="text-gray-500">The Pittsburgh SDND room!</p>
                   </div>
                 </div>
               </CardContent>
@@ -47,7 +47,7 @@ export default function ContactPage() {
                   <Phone className="h-6 w-6 text-green-600 mt-1" />
                   <div>
                     <h3 className="font-semibold">Call Us</h3>
-                    <p className="text-gray-500">+1 (555) 123-4567</p>
+                    <p className="text-gray-500">911</p>
                   </div>
                 </div>
               </CardContent>
@@ -65,11 +65,11 @@ export default function ContactPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="first-name">First name</Label>
-                  <Input id="first-name" placeholder="John" required />
+                  <Input id="first-name" placeholder="Never-Gonna" required />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="last-name">Last name</Label>
-                  <Input id="last-name" placeholder="Doe" required />
+                  <Input id="last-name" placeholder="Give-You-Up" required />
                 </div>
               </div>
               <div className="space-y-2">
@@ -78,13 +78,13 @@ export default function ContactPage() {
               </div>
               <div className="space-y-2">
                 <Label htmlFor="subject">Subject</Label>
-                <Input id="subject" placeholder="How can we help you?" required />
+                <Input id="subject" placeholder="How can we help your microplastic journey?" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="message">Message</Label>
                 <Textarea
                   id="message"
-                  placeholder="Please provide details about your inquiry..."
+                  placeholder="What specifically can we help with?"
                   required
                   className="min-h-[120px]"
                 />
