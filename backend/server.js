@@ -18,7 +18,10 @@ app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB connected"))
-    .catch(err => console.error("MongoDB connection error:", err));
+    .catch(err => {
+        console.error("MongoDB connection error:", err);
+        process.exit(1); // Exit if we can't connect to MongoDB
+    });
 
 console.log("[DEBUG] Defining route: POST /api/submit_product");
 app.post("/api/submit_product", async (req, res) => {
@@ -71,16 +74,18 @@ app.post("/api/submit_product", async (req, res) => {
                 if(val){
                     console.log("Scraper results saved to MongoDB");
                 }
-                else{
-                    console.error("[ERROR] Error saving to MongoDB:", err);
-                    res.status(500).json({ message: "Failed to save to MongoDB" });
                 }
-                
-                // Still return original results structure to frontend if needed
-                res.json({ message: "Scraper executed successfully!", results }); 
+
+                if (savedResults.length > 0) {
+                    console.log(`[DEBUG] Successfully saved ${savedResults.length} results to MongoDB`);
+                    res.json({ message: "Scraper executed successfully!", results: savedResults });
+                } else {
+                    console.error("[ERROR] No results were saved to MongoDB");
+                    res.status(500).json({ message: "Failed to save any results to MongoDB" });
+                }
             } catch (err) {
-                console.error("[ERROR] Error saving to MongoDB:", err);
-                res.status(500).json({ message: "Failed to save to MongoDB" });
+                console.error("[ERROR] Error processing scraper results:", err);
+                res.status(500).json({ message: "Failed to process scraper results" });
             }
         });
 
