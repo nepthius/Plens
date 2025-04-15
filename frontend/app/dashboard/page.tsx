@@ -271,85 +271,71 @@ export default function Dashboard() {
   
       <h3 className="text-xl font-semibold mb-4">My Skincare Products</h3>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {savedProducts.map((prod) => (
-          <div
-            key={prod._id}
-            className={`p-6 rounded-lg shadow-lg ${
-              prod.risk === "high"
-                ? "bg-red-50 border-red-200"
-                : prod.risk === "medium"
-                ? "bg-yellow-50 border-yellow-200"
-                : "bg-green-50 border-green-200"
-            } border-2`}
-          >        
-            <h4 className="font-semibold mb-2">{prod.name}</h4>
-            <p className="mb-4">Risk: {prod.risk || "unknown"}</p>
-            
-            {prod.high?.length > 0 && (
-              <div className="mb-3">
-                <strong className="block mb-1">High-Risk Ingredients:</strong>
-                <div className="flex flex-wrap gap-1">
-                  {prod.high.map((ing, idx) => (
-                    <span key={idx} className="inline-flex items-center">
-                      <IngredientTooltip name={ing} />
-                      {idx < prod.high!.length - 1 && ", "}
-                    </span>
-                  ))}
-                </div>
+        {savedProducts.map((product) => (
+          <div key={product._id} className="border rounded-lg p-4 mb-4">
+            <div className="flex justify-between items-start mb-4">
+              <h3 className="text-lg font-semibold">{product.name}</h3>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => handleDelete(product._id)}
+                  className="px-3 py-1 text-sm bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                  Delete
+                </button>
+                <button
+                  onClick={() => findAlternatives(product.name, product.risk, product._id)}
+                  className="px-3 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  Find Alternatives
+                </button>
               </div>
-            )}
-
-            {prod.med?.length > 0 && (
-              <div className="mb-3">
-                <strong className="block mb-1">Medium-Risk Ingredients:</strong>
-                <div className="flex flex-wrap gap-1">
-                  {prod.med.map((ing, idx) => (
-                    <span key={idx} className="inline-flex items-center">
-                      <IngredientTooltip name={ing} />
-                      {idx < prod.med!.length - 1 && ", "}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="flex gap-2 mt-4">
-              <button
-                onClick={() => handleDelete(prod._id)}
-                className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-              >
-                Delete
-              </button>
-              <button
-                onClick={() => findAlternatives(prod.name, prod.risk, prod._id)}
-                className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {suggestions[prod._id] ? "Hide Alternatives" : "Find Alternatives"}
-              </button>
             </div>
 
-            {suggestions[prod._id] && (
-              <div className="mt-4">
-                <h5 className="font-semibold mb-2">Alternative Products:</h5>
-                {suggestions[prod._id].length > 0 ? (
+            <div className="space-y-4">
+              {product.high && product.high.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium text-red-600 mb-2">High Risk Ingredients:</h4>
+                  <ul className="space-y-1">
+                    {product.high.map((ingredient, index) => (
+                      <li key={index} className="text-sm">
+                        <IngredientTooltip name={ingredient} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {product.med && product.med.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium text-yellow-600 mb-2">Medium Risk Ingredients:</h4>
+                  <ul className="space-y-1">
+                    {product.med.map((ingredient, index) => (
+                      <li key={index} className="text-sm">
+                        <IngredientTooltip name={ingredient} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {suggestions[product._id] && (
+                <div className="mt-4">
+                  <h4 className="text-sm font-medium text-green-600 mb-2">Alternative Products:</h4>
                   <ul className="space-y-2">
-                    {suggestions[prod._id].map((alt: any, idx: number) => (
-                      <li key={idx} className="flex items-center justify-between">
-                        <span>{alt.name}</span>
+                    {suggestions[product._id].map((suggestion, index) => (
+                      <li key={index} className="text-sm">
                         <button
-                          onClick={() => handleReplace(prod._id, alt)}
-                          className="px-2 py-1 text-sm bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500"
+                          onClick={() => handleReplace(product._id, suggestion)}
+                          className="text-blue-600 hover:text-blue-800"
                         >
-                          Replace
+                          {suggestion.name}
                         </button>
                       </li>
                     ))}
                   </ul>
-                ) : (
-                  <p>No alternatives found.</p>
-                )}
-              </div>
-            )}
+                </div>
+              )}
+            </div>
           </div>
         ))}
       </div>

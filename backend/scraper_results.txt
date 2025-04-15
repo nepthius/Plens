@@ -1,50 +1,25 @@
 [
     {
-        "name": "CeraVe Sa Cream For Rough & Bumpy Skin",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Lotion For Rough & Bumpy Skin",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Lotion For Rough & Bumpy Skin (Canada)",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Cream For Rough And Bumpy Skin",
-        "risk": "high",
-        "high": [
-            "Dimethicone",
-            "Carbomer"
-        ],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Sa Cleanser Bar For Rough & Bumpy Skin",
-        "risk": "low",
-        "high": [],
-        "med": [],
-        "image": ""
-    },
-    {
-        "name": "CeraVe Moisturizing Cream",
+        "name": "CeraVe Gentle Hydrating Shampoo",
         "risk": "high",
         "high": [
             "Carbomer",
-            "Dimethicone"
+            "Acrylates Copolymer"
         ],
-        "med": [],
+        "med": [
+            "Amodimethicone"
+        ],
+        "image": ""
+    },
+    {
+        "name": "CeraVe Gentle Hydrating Conditioner",
+        "risk": "high",
+        "high": [
+            "Carbomer"
+        ],
+        "med": [
+            "Amodimethicone"
+        ],
         "image": ""
     }
 ]

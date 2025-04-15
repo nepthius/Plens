@@ -1,19 +1,6 @@
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import "../styles/Tooltip.css";
 
-interface IngredientTooltipProps {
-  name: string;
-}
-
-type RiskDescriptions = {
-  [key: string]: string;
-};
-
-const highRiskDescriptions: RiskDescriptions = {
+const highRiskDescriptions = {
   "Acrylates Copolymer": "Plastic-based film-former. Can degrade into microplastics.",
   "Acrylates Crosspolymer": "Used for thickening. Persistent in the environment.",
   "Butylene": "Can be a synthetic polymer base. Low degradability.",
@@ -38,7 +25,7 @@ const highRiskDescriptions: RiskDescriptions = {
   "VP/VA Copolymer": "Vinyl-based film former. Microplastic potential.",
 };
 
-const mediumRiskDescriptions: RiskDescriptions = {
+const mediumRiskDescriptions = {
   "Acrylamidopropyltrimonium Chloride/Acrylamide Copolymer": "Used for conditioning. Moderately persistent in the environment.",
   "Acrylates/Palmeth-25 Acrylate Copolymer": "Derived from palm oil and plastics. May not fully degrade.",
   "Acrylates/T-Butylacrylamide Copolymer": "Synthetic polymer. Possible microplastic residue.",
@@ -63,7 +50,7 @@ const mediumRiskDescriptions: RiskDescriptions = {
   "Bis-Diisopropanolamino-Pg-Propyl Dimethicone/Bis-Isobutyl PEG-14 Copolymer": "Highly engineered. Medium biodegradability concern.",
 };
 
-export default function IngredientTooltip({ name }: IngredientTooltipProps) {
+const IngredientTooltip = ({ name }) => {
   // Normalize the ingredient name for comparison
   const normalizedName = name.trim().toLowerCase();
   
@@ -87,44 +74,30 @@ export default function IngredientTooltip({ name }: IngredientTooltipProps) {
   const highMatch = exactHighMatch || partialHighMatch;
   const mediumMatch = exactMediumMatch || partialMediumMatch;
 
-  const description = highMatch 
-    ? highRiskDescriptions[highMatch]
-    : mediumMatch 
-      ? mediumRiskDescriptions[mediumMatch]
-      : null;
+  if (highMatch) {
+    return (
+      <span className="tooltip high-risk">
+        {name}
+        <span className="tooltip-text">
+          {highRiskDescriptions[highMatch]}
+        </span>
+      </span>
+    );
+  }
 
-  const risk = highMatch ? 'high' : mediumMatch ? 'medium' : 'low';
+  if (mediumMatch) {
+    return (
+      <span className="tooltip medium-risk">
+        {name}
+        <span className="tooltip-text">
+          {mediumRiskDescriptions[mediumMatch]}
+        </span>
+      </span>
+    );
+  }
 
-  return (
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger className={`${
-          risk === 'high' ? 'text-red-600' :
-          risk === 'medium' ? 'text-yellow-600' :
-          'text-green-600'
-        } hover:underline cursor-help`}>
-          {name}
-        </TooltipTrigger>
-        <TooltipContent className="max-w-sm p-4">
-          <div>
-            <h4 className="font-semibold mb-2">{name}</h4>
-            {description ? (
-              <>
-                <p className="text-sm mb-2">{description}</p>
-                <p className={`text-sm mt-2 ${
-                  risk === 'high' ? 'text-red-500' :
-                  risk === 'medium' ? 'text-yellow-500' :
-                  'text-green-500'
-                }`}>
-                  {risk.charAt(0).toUpperCase() + risk.slice(1)} Risk
-                </p>
-              </>
-            ) : (
-              <p className="text-sm">No information available</p>
-            )}
-          </div>
-        </TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-  );
-} 
+  // If no match found, show the ingredient without a tooltip
+  return <span>{name}</span>;
+};
+
+export default IngredientTooltip;

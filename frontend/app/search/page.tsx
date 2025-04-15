@@ -18,6 +18,7 @@ import {
 import { Label } from "@/components/ui/label"
 import Link from "next/link" // Import Link
 import { useAuth } from "@/hooks/useAuth"
+import IngredientTooltip from "@/components/IngredientTooltip"
 
 // --- Interfaces --- 
 interface Ingredient { // Keep this basic for now, structure might change if backend sends data
@@ -248,15 +249,15 @@ function SearchResults() {
               let riskText = 'Unknown Risk';
 
               if (riskLevel === 'low') {
-                riskColorClass = 'bg-green-50 border-green-200'; 
+                riskColorClass = 'bg-green-100 border-green-200';
                 riskTextColor = 'text-green-700';
                 riskText = 'Low Risk';
               } else if (riskLevel === 'medium') {
-                riskColorClass = 'bg-yellow-50 border-yellow-300'; 
+                riskColorClass = 'bg-yellow-100 border-yellow-200';
                 riskTextColor = 'text-yellow-700';
                 riskText = 'Medium Risk';
               } else if (riskLevel === 'high') {
-                riskColorClass = 'bg-red-50 border-red-300'; 
+                riskColorClass = 'bg-red-100 border-red-200';
                 riskTextColor = 'text-red-700';
                 riskText = 'High Risk';
               }
@@ -272,40 +273,43 @@ function SearchResults() {
               
               return (
                 <Link href={linkHref} key={result._id} className="block hover:opacity-90 transition-opacity">
-                   <Card className={cn("border h-full", riskColorClass)}> 
+                   <Card className={cn("border-2", riskColorClass)}> 
                     <CardHeader>
-                       <CardTitle className="flex justify-between items-center">
-                        <span>{result.name}</span> 
-                        <span className={cn("inline-block px-2 py-1 text-xs font-semibold rounded", riskColorClass, riskTextColor)}>
-                            {riskText}
-                        </span>
-                      </CardTitle>
+                       <CardTitle className="text-lg font-semibold">{result.name}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                       {/* Display High-Risk Ingredients */}
-                       {result.high && result.high.length > 0 && (
-                        <div className="mb-2">
-                          <h4 className="font-semibold text-sm text-red-700">High-Risk Ingredients:</h4>
-                          <ul className="list-disc pl-5 text-sm space-y-1 text-red-600">
-                            {result.high.map((ing, index) => <li key={`high-${index}`}>{ing}</li>)}
-                          </ul>
-                        </div>
-                      )}
-                      {/* Display Medium-Risk Ingredients */}
-                      {result.med && result.med.length > 0 && (
-                        <div className="mb-2">
-                          <h4 className="font-semibold text-sm text-yellow-700">Medium-Risk Ingredients:</h4>
-                          <ul className="list-disc pl-5 text-sm space-y-1 text-yellow-600">
-                            {result.med.map((ing, index) => <li key={`med-${index}`}>{ing}</li>)}
-                          </ul>
-                        </div>
-                      )}
-                      {/* Message if no concerning ingredients listed */}
-                      {(!result.high || result.high.length === 0) && (!result.med || result.med.length === 0) && (
-                         <p className="text-sm text-gray-500 mb-2">No concerning ingredients listed.</p>
-                      )}
-                      
-                      <p className="text-xs text-gray-400 mt-4">Searched on: {new Date(result.timestamp).toLocaleDateString()}</p>
+                       <div className="space-y-4">
+                         <div className="flex items-center justify-between">
+                           <span className={cn("text-sm font-medium", riskTextColor)}>{riskText}</span>
+                         </div>
+                         
+                         {result.high && result.high.length > 0 && (
+                           <div>
+                             <h4 className="text-sm font-medium text-red-600 mb-2">High Risk Ingredients:</h4>
+                             <ul className="space-y-1">
+                               {result.high.map((ingredient, index) => (
+                                 <li key={index} className="text-sm">
+                                   <IngredientTooltip name={ingredient} />
+                                 </li>
+                               ))}
+                             </ul>
+                           </div>
+                         )}
+                         
+                         {result.med && result.med.length > 0 && (
+                           <div>
+                             <h4 className="text-sm font-medium text-yellow-600 mb-2">Medium Risk Ingredients:</h4>
+                             <ul className="space-y-1">
+                               {result.med.map((ingredient, index) => (
+                                 <li key={index} className="text-sm">
+                                   <IngredientTooltip name={ingredient} />
+                                 </li>
+                               ))}
+                             </ul>
+                           </div>
+                         )}
+                       </div>
+                       <p className="text-xs text-gray-400 mt-4">Searched on: {new Date(result.timestamp).toLocaleDateString()}</p>
                     </CardContent>
                   </Card>
                  </Link>

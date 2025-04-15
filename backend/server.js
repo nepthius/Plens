@@ -55,7 +55,7 @@ app.post("/api/submit_product", async (req, res) => {
         const scraperScript = path.join(__dirname, "../scraper/scraper.py");
         console.log(`[DEBUG] Scraper script path: ${scraperScript}`);
 
-        exec(`python3 "${scraperScript}" "${name}"`, async (error, stdout, stderr) => {
+        exec(`python3 "${scraperScript}" "${name}"`, async (error, stdout, stderr)=> {
             if (error) {
                 console.error(`[ERROR] Scraper execution failed:`, error);
                 return res.status(500).json({ message: "Scraper execution failed" });
