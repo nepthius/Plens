@@ -23,37 +23,26 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
         process.exit(1); // Exit if we can't connect to MongoDB
     });
 
-console.log("[DEBUG] Defining route: POST /api/submit_product");
 app.post("/api/submit_product", async (req, res) => {
     const { name } = req.body;
 
     if (!name) {
-        console.log("Error: No product name provided in request");
         return res.status(400).json({ message: "Product name is required!" });
     }
-
-    console.log(`[DEBUG] Searching MongoDB for product: "${name}"`);
-    console.log(`[DEBUG] Using MongoDB URI: ${process.env.MONGO_URI}`);
 
     try {
         const existingProducts = await ScraperResult.find({
             name: { $regex: name, $options: "i" } 
         });
 
-        console.log(`[DEBUG] Database find result for productName matching "${name}":`, JSON.stringify(existingProducts, null, 2));
-        console.log(`[DEBUG] Found ${existingProducts.length} products in database`);
         if (existingProducts.length > 0) {
-            console.log(`[DEBUG] First product found:`, JSON.stringify(existingProducts[0], null, 2));
         }
 
         if (existingProducts.length > 0) {
-            console.log(`Found ${existingProducts.length} matching products in MongoDB!`);
             return res.json({ message: "Found similar products in database!", results: existingProducts });
         }
 
-        console.log(`[DEBUG] No similar products found in database. Running scraper...`);
         const scraperScript = path.join(__dirname, "../scraper/scraper.py");
-        console.log(`[DEBUG] Scraper script path: ${scraperScript}`);
 
         exec(`python3 "${scraperScript}" "${name}"`, async (error, stdout, stderr) => {
             if (error) {
@@ -66,18 +55,11 @@ app.post("/api/submit_product", async (req, res) => {
             }
 
             try {
-                console.log(`[DEBUG] Scraper stdout:`, stdout);
                 const results = JSON.parse(stdout);
-                console.log(`[DEBUG] Parsed results:`, JSON.stringify(results, null, 2));
 
-                const val = await ScraperResult.insertMany(results);
-                if(val){
-                    console.log("Scraper results saved to MongoDB");
-                }
-                
-
+                const savedResults = await ScraperResult.insertMany(results);
+            
                 if (savedResults.length > 0) {
-                    console.log(`[DEBUG] Successfully saved ${savedResults.length} results to MongoDB`);
                     res.json({ message: "Scraper executed successfully!", results: savedResults });
                 } else {
                     console.error("[ERROR] No results were saved to MongoDB");
@@ -96,12 +78,9 @@ app.post("/api/submit_product", async (req, res) => {
 });
 
 app.get("/api/get_scraper_results", async (req, res) => {
-    console.log("[DEBUG] Fetching all scraper results");
     try {
         const results = await ScraperResult.find().sort({ timestamp: -1 }).limit(10);
-        console.log(`[DEBUG] Found ${results.length} results in database`);
         if (results.length > 0) {
-            console.log("[DEBUG] First result:", JSON.stringify(results[0], null, 2));
         }
         res.json(results);
     } catch (error) {
@@ -255,7 +234,6 @@ app.post("/api/user/products", authMiddleware, async (req, res) => {
             const scrapedToSave = {
                 name: scraped.name,
             };
-            console.log('[DEBUG] Transformed single scraped result for saving:', JSON.stringify(scrapedToSave, null, 2));
 
             await ScraperResult.create(scrapedToSave);
 
@@ -368,7 +346,6 @@ app.get("/api/products/alternatives", async (req, res) => {
               high: result.high,
               med: result.med
           }));
-          console.log('[DEBUG] Transformed alternative results for saving:', JSON.stringify(resultsToSave, null, 2));
           await ScraperResult.insertMany(resultsToSave);
       }
   
