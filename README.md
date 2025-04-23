@@ -14,7 +14,7 @@ The project consists of:
 ### Prerequisites
 
 *   Node.js (v18 or later)
-*   npm (for frontend dependencies)
+*   npm (for frontend dependencies and backend server)
 *   Python 3.x
 *   MongoDB
 
