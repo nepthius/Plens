@@ -8,7 +8,7 @@ The project consists of:
 
 *   **Frontend:** A Next.js/React application providing the user interface.
 *   **Backend:** A Node.js/Express API server handling user authentication, data requests, and interaction with the database and scraper.
-*   **Scraper:** Python scripts (`scraper.py`, `risk_ingredients.py`) responsible for fetching and analyzing product ingredient information.
+*   **Scraper:** Python `scraper.py` responsible for fetching and analyzing product ingredient information, while `risk_ingredients.py` is responsible for holding all at risk ingredients to compare against.
 *   **Database:** MongoDB is used to store user data and scraped product results.
 
 ### Prerequisites
