@@ -2,7 +2,7 @@
 
 import { useState, FormEvent } from 'react'
 import Link from "next/link"
-import { useRouter } from 'next/navigation' // Use for redirection
+import { useRouter } from 'next/navigation'
 import axios from 'axios'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,7 +19,7 @@ export default function LoginPage() {
 
   const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setError(null) // Clear previous errors
+    setError(null)
     setIsLoading(true)
 
     if (!emailOrUsername || !password) {
@@ -28,7 +28,7 @@ export default function LoginPage() {
       return
     }
 
-    const backendUrl = "http://localhost:3001/api/login"; // Ensure backend is on 3001
+    const backendUrl = "http://localhost:3001/api/login";
 
     try {
       const response = await axios.post(backendUrl, { 
@@ -37,14 +37,12 @@ export default function LoginPage() {
       });
 
       if (response.data.token) {
-        // Use the useAuth hook to set the token and user info
         setAuth({
           username: response.data.username,
           email: response.data.email,
           id: response.data.userId
         }, response.data.token);
         
-        console.log("Login successful, token stored.")
         router.push('/dashboard');
       } else {
         setError("Login failed: No token received.")
@@ -55,7 +53,7 @@ export default function LoginPage() {
       let errorMsg = "Login failed. Please try again.";
       if (axios.isAxiosError(err)) {
           if (err.response?.data?.message) {
-              errorMsg = err.response.data.message; // Use message from backend
+              errorMsg = err.response.data.message;
           } else if (err.request) {
               errorMsg = "No response from server. Is the backend running?";
           }

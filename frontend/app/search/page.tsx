@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search, ChevronLeft, ChevronRight } from "lucide-react"
-import { cn } from "@/lib/utils" // Assuming you have shadcn/ui utils
+import { cn } from "@/lib/utils"
 import IngredientTooltip from "../components/tooltip";
 import {
   Select,
@@ -15,15 +15,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select" // Import Select components
+} from "@/components/ui/select"
 import { Label } from "@/components/ui/label"
-import Link from "next/link" // Import Link
+import Link from "next/link"
 import { useAuth } from "@/hooks/useAuth"
 
-// --- Interfaces --- 
-interface Ingredient { // Keep this basic for now, structure might change if backend sends data
+interface Ingredient {
   name: string;
-  riskLevel?: string; // Making optional as structure isn't confirmed
+  riskLevel?: string;
   description?: string;
 }
 
@@ -31,9 +30,8 @@ interface SearchResult {
   _id: string;
   name: string; 
   risk: string; 
-  high: string[]; // Added high-risk ingredients array
-  med: string[]; // Added medium-risk ingredients array
-  // ingredients: Ingredient[]; // Removing this as it seems unused based on examples
+  high: string[];
+  med: string[];
   timestamp: string;
 }
 
@@ -41,26 +39,24 @@ interface ApiResponse {
   message: string;
   results: SearchResult[];
 }
-// -------------------
 
-// Define type for risk levels for safer indexing
 type RiskLevel = 'low' | 'medium' | 'high' | 'unknown';
 
-const ITEMS_PER_PAGE = 15; // 5 rows * 3 columns
+const ITEMS_PER_PAGE = 15;
 
 function SearchResults() {
   const searchParams = useSearchParams();
-  const router = useRouter(); // Initialize router
+  const router = useRouter();
   const query = searchParams.get('query') || "";
-  const { token } = useAuth(); // Get the auth token
+  const { token } = useAuth();
 
-  const [allResults, setAllResults] = useState<SearchResult[] | null>(null); // Store all fetched results
+  const [allResults, setAllResults] = useState<SearchResult[] | null>(null);
   const [message, setMessage] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [inputValue, setInputValue] = useState<string>(query); // State for the input field
+  const [inputValue, setInputValue] = useState<string>(query);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [filterType, setFilterType] = useState<string>('All'); // State for filtering
-  const [sortOrder, setSortOrder] = useState<string>('default'); // State for sorting
+  const [filterType, setFilterType] = useState<string>('All');
+  const [sortOrder, setSortOrder] = useState<string>('default');
 
   useEffect(() => {
     setCurrentPage(1);
@@ -77,7 +73,6 @@ function SearchResults() {
       setMessage(`Searching for "${query}"...`);
       setAllResults(null);
 
-      // --- Ensure this matches your backend URL (Port 3001) --- 
       const backendUrl = "http://localhost:3001/api/submit_product"; 
 
       try {
@@ -87,8 +82,7 @@ function SearchResults() {
             'Content-Type': 'application/json'
           }
         });
-        console.log("[DEBUG] Raw API Response:", JSON.stringify(response.data, null, 2));
-        setAllResults(response.data.results); // Store all results
+        setAllResults(response.data.results);
         setMessage(response.data.message);
       } catch (error) {
         console.error("Error fetching search results:", error);
@@ -114,30 +108,25 @@ function SearchResults() {
     fetchData();
   }, [query, token]);
 
-  // Update input value if query param changes externally
   useEffect(() => {
     setInputValue(query);
   }, [query]);
 
   const capitalize = (s: string) => s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
 
-  // --- Filtering and Sorting Logic --- 
   const processedResults = useMemo(() => {
     if (!allResults) return [];
 
     let filtered = [...allResults];
 
-    // Apply Filter
     if (filterType !== 'All') {
       filtered = filtered.filter(result => 
         (result.risk?.toLowerCase() || 'unknown') === filterType.toLowerCase()
       );
     }
 
-    // Apply Sort
-    const riskWeight: { [key in RiskLevel]: number } = { low: 1, medium: 2, high: 3, unknown: 0 }; // Define weights with index signature
+    const riskWeight: { [key in RiskLevel]: number } = { low: 1, medium: 2, high: 3, unknown: 0 };
     
-    // Helper to get risk level safely
     const getSafeRisk = (riskStr: string): RiskLevel => {
         const lowerRisk = riskStr?.toLowerCase();
         if (lowerRisk === 'low' || lowerRisk === 'medium' || lowerRisk === 'high') {
@@ -151,12 +140,10 @@ function SearchResults() {
     } else if (sortOrder === 'highToLow') {
         filtered.sort((a, b) => riskWeight[getSafeRisk(b.risk)] - riskWeight[getSafeRisk(a.risk)]);
     }
-    // Default sort is by backend order
 
     return filtered;
   }, [allResults, filterType, sortOrder]);
 
-  // --- Pagination Logic (operates on processedResults) --- 
   const totalPages = Math.ceil(processedResults.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -165,17 +152,16 @@ function SearchResults() {
   const handlePageChange = (newPage: number) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setCurrentPage(newPage);
-       window.scrollTo(0, 0); // Scroll to top on page change
+       window.scrollTo(0, 0);
     }
   };
 
-  // Reset page when filter/sort changes
   useEffect(() => {
       setCurrentPage(1);
   }, [filterType, sortOrder]);
 
   const handleSearchSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); // Prevent full page reload
+    event.preventDefault();
     const newQuery = inputValue.trim();
     if (newQuery) {
       router.push(`/search?query=${encodeURIComponent(newQuery)}`);
@@ -199,9 +185,8 @@ function SearchResults() {
             <Search className="h-4 w-4 mr-2" />
             Search
           </Button>
-        </form>
+      </form>
 
-      {/* Filter and Sort Controls */} 
       <div className="flex flex-col sm:flex-row gap-4 mb-8 p-4 border rounded-lg bg-gray-50">
           <div className="flex-1">
             <Label htmlFor="filter-risk" className="text-sm font-medium">Filter by Risk</Label>
@@ -262,12 +247,11 @@ function SearchResults() {
                 riskText = 'High Risk';
               }
               
-              // Prepare query params
               const queryParams = new URLSearchParams();
               queryParams.set('name', result.name);
               queryParams.set('risk', result.risk);
-              if (result.high?.length) queryParams.set('high', result.high.join('|')); // Join with a delimiter
-              if (result.med?.length) queryParams.set('med', result.med.join('|'));   // Join with a delimiter
+              if (result.high?.length) queryParams.set('high', result.high.join('|'));
+              if (result.med?.length) queryParams.set('med', result.med.join('|'));  
               
               const linkHref = `/product/${result._id}?${queryParams.toString()}`;
               
@@ -283,7 +267,6 @@ function SearchResults() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                       {/* Display High-Risk Ingredients */}
                        {result.high && result.high.length > 0 && (
                         <div className="mb-2">
                           <h4 className="font-semibold text-sm text-red-700">High-Risk Ingredients:</h4>
@@ -296,7 +279,6 @@ function SearchResults() {
                           </ul>
                         </div>
                       )}
-                      {/* Display Medium-Risk Ingredients */}
                       {result.med && result.med.length > 0 && (
                         <div className="mb-2">
                           <h4 className="font-semibold text-sm text-yellow-700">Medium-Risk Ingredients:</h4>
@@ -310,7 +292,6 @@ function SearchResults() {
                           </ul>
                         </div>
                       )}
-                      {/* Message if no concerning ingredients listed */}
                       {(!result.high || result.high.length === 0) && (!result.med || result.med.length === 0) && (
                          <p className="text-sm text-gray-500 mb-2">No concerning ingredients listed.</p>
                       )}
@@ -323,7 +304,6 @@ function SearchResults() {
             })}
           </div>
 
-          {/* Pagination Controls */}
           {totalPages > 1 && (
             <div className="flex justify-center items-center space-x-2 mt-8">
               <Button
@@ -350,7 +330,6 @@ function SearchResults() {
         </>
       )}
 
-      {/* Message when no results after filtering/loading */}
       {!isLoading && currentResults.length === 0 && query && (
          <p className="text-center text-gray-500">
              {allResults && allResults.length > 0 ? `No results match the current filter.` : `No results found for "${query}".`}
@@ -360,7 +339,6 @@ function SearchResults() {
   );
 }
 
-// Wrap with Suspense for useSearchParams
 export default function SearchPage() {
   return (
     <Suspense fallback={<div className="container py-12 text-center">Loading search results...</div>}>

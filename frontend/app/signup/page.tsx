@@ -13,65 +13,54 @@ export default function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
-  const [successMessage, setSuccessMessage] = useState<string | null>(null)
+  const [success, setSuccess] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
 
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
-    setSuccessMessage(null)
+    setSuccess(null)
     setIsLoading(true)
 
     if (!username || !email || !password) {
-      setError("All fields are required.")
-      setIsLoading(false)
-      return
-    }
-    
-    // Basic email validation (optional)
-    if (!/\S+@\S+\.\S+/.test(email)) {
-      setError("Please enter a valid email address.")
+      setError("Please fill in all fields.")
       setIsLoading(false)
       return
     }
 
-    const backendUrl = "http://localhost:3001/api/register"; // Ensure backend is on 3001
+    const backendUrl = "http://localhost:3001/api/register";
 
     try {
       const response = await axios.post(backendUrl, { 
-          username, 
-          email,
+          username,
+          email, 
           password 
       });
 
-      // Optional: Store token immediately if backend sends it on signup
-      // if (response.data.token) {
-      //   localStorage.setItem('authToken', response.data.token);
-      // }
-
-      setSuccessMessage("Signup successful! Redirecting to login...");
-      console.log("Signup successful");
-
-      // Redirect to login page after a short delay
-      setTimeout(() => {
-        router.push('/login');
-      }, 2000); // 2 second delay
+      if (response.data.success) {
+        setSuccess("Account created successfully! Redirecting to login...")
+        setTimeout(() => {
+          router.push('/login')
+        }, 2000)
+      } else {
+        setError("Signup failed: " + response.data.message)
+      }
 
     } catch (err) {
       console.error("Signup error:", err);
       let errorMsg = "Signup failed. Please try again.";
       if (axios.isAxiosError(err)) {
           if (err.response?.data?.message) {
-              errorMsg = err.response.data.message; // Use message from backend
+              errorMsg = err.response.data.message;
           } else if (err.request) {
               errorMsg = "No response from server. Is the backend running?";
           }
       }
       setError(errorMsg);
-      setIsLoading(false); // Keep form enabled on error
-    } 
-    // Don't set isLoading to false in the finally block if redirecting
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -96,7 +85,7 @@ export default function SignupPage() {
                 disabled={isLoading}
               />
             </div>
-             <div>
+            <div>
               <Label htmlFor="email">Email address</Label>
               <Input
                 id="email"
@@ -131,19 +120,20 @@ export default function SignupPage() {
               <p className="text-sm text-red-700">{error}</p>
             </div>
           )}
-           {successMessage && (
+
+          {success && (
             <div className="rounded-md bg-green-50 p-4">
-              <p className="text-sm text-green-700">{successMessage}</p>
+              <p className="text-sm text-green-700">{success}</p>
             </div>
           )}
 
           <div>
             <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? "Signing up..." : "Sign up"}
+              {isLoading ? "Creating account..." : "Sign up"}
             </Button>
           </div>
         </form>
-         <div className="text-sm text-center">
+        <div className="text-sm text-center">
           <p>
             Already have an account?{" "}
             <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">

@@ -14,14 +14,12 @@ import { cn } from "@/lib/utils"
 import IngredientTooltip from "../../components/tooltip";
 
 
-// --- Interfaces (reuse or define appropriately) ---
-interface ProductDetail { // Simplified structure for now
+interface ProductDetail { 
   _id: string;
   name: string;
   risk: string;
-  high: string[]; // Store as array
-  med: string[];  // Store as array
-  // Add other fields if needed/fetched
+  high: string[]; 
+  med: string[];
 }
 
 interface AlternativeProduct {
@@ -37,10 +35,8 @@ interface AlternativesApiResponse {
 }
 // -----------------------------------------------------
 
-// Helper function to capitalize
 const capitalize = (s: string) => s ? s.charAt(0).toUpperCase() + s.slice(1) : "";
 
-// Helper function to render risk badge styling (copied from search page)
 const getRiskStyling = (riskLevel: string | undefined) => {
     const lowerRisk = riskLevel?.toLowerCase() || 'unknown';
     let riskColorClass = 'bg-gray-100 border-gray-200'; 
@@ -65,11 +61,10 @@ const getRiskStyling = (riskLevel: string | undefined) => {
 
 function ProductDetailsComponent() {
   const params = useParams();
-  const searchParams = useSearchParams(); // To potentially get initial data if passed
+  const searchParams = useSearchParams(); 
   const productId = params.id as string;
 
-  // State for the main product (initially from searchParams or fetched)
-  // NOTE: This is simplified. Ideally, fetch this product by ID.
+
   const [mainProduct, setMainProduct] = useState<ProductDetail | null>(() => {
       const name = searchParams.get('name');
       const risk = searchParams.get('risk');
@@ -77,7 +72,6 @@ function ProductDetailsComponent() {
       const medString = searchParams.get('med');
 
       if (!name || !risk) {
-          // Basic info missing, cannot proceed
           return null;
       }
 
@@ -85,20 +79,18 @@ function ProductDetailsComponent() {
           _id: productId,
           name: name,
           risk: risk,
-          high: highString ? highString.split('|') : [], // Split back into array
-          med: medString ? medString.split('|') : []    // Split back into array
+          high: highString ? highString.split('|') : [], 
+          med: medString ? medString.split('|') : []   
       };
   });
   const [alternatives, setAlternatives] = useState<AlternativeProduct[]>([]);
   const [isLoadingAlternatives, setIsLoadingAlternatives] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // --- Fetch Alternatives (depends on mainProduct being initialized) --- 
   useEffect(() => {
     if (!mainProduct) { 
-        // This will be true if required params (name, risk) were missing
         setError("Could not load product details from URL.");
-        setIsLoadingAlternatives(false); // Stop loading alternatives
+        setIsLoadingAlternatives(false); 
         return;
     }
     
@@ -106,7 +98,6 @@ function ProductDetailsComponent() {
       setIsLoadingAlternatives(true);
       setError(null); 
 
-      // Ensure name and risk are available (already checked during init, but good practice)
       if (!mainProduct.name || !mainProduct.risk) {
           setError("Cannot fetch alternatives: missing product name or risk.")
           setIsLoadingAlternatives(false);
@@ -143,12 +134,10 @@ function ProductDetailsComponent() {
     };
 
     fetchAlternatives();
-  }, [mainProduct]); // Trigger when mainProduct is set
+  }, [mainProduct]); 
 
-  // --- Render Main Product --- 
   const renderMainProduct = () => {
       if (!mainProduct) {
-          // Display error set during initialization or fetching alternatives
           return <p className="text-red-600 mb-8 text-center">{error || "Error loading product details."}</p>; 
       }
       const { riskColorClass, riskTextColor, riskText } = getRiskStyling(mainProduct.risk);
@@ -163,7 +152,6 @@ function ProductDetailsComponent() {
                   </CardTitle>
               </CardHeader>
               <CardContent>
-                    {/* Display High-Risk Ingredients */}
                     {mainProduct.high && mainProduct.high.length > 0 && (
                       <div className="mb-2">
                         <h4 className="font-semibold text-sm text-red-700">High-Risk Ingredients:</h4>
@@ -172,7 +160,6 @@ function ProductDetailsComponent() {
                         </ul>
                       </div>
                     )}
-                    {/* Display Medium-Risk Ingredients */}
                     {mainProduct.med && mainProduct.med.length > 0 && (
                       <div className="mb-2">
                         <h4 className="font-semibold text-sm text-yellow-700">Medium-Risk Ingredients:</h4>
@@ -189,7 +176,6 @@ function ProductDetailsComponent() {
       );
   };
 
-  // --- Render Alternatives --- 
   const renderAlternatives = () => {
       if (isLoadingAlternatives) {
           return <p className="text-center text-gray-500">Loading alternatives...</p>;
@@ -242,7 +228,6 @@ function ProductDetailsComponent() {
 
   return (
     <div className="container mx-auto px-4 py-12 md:px-6">
-        {/* Optional Back Button */} 
         <div className="mb-6">
              <Button variant="outline" size="sm" asChild>
                <Link href="/search"> 
@@ -260,7 +245,6 @@ function ProductDetailsComponent() {
   );
 }
 
-// Wrap with Suspense for useParams/useSearchParams
 export default function ProductPage() {
   return (
     <Suspense fallback={<div className="container py-12 text-center">Loading product details...</div>}>
