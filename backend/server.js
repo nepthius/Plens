@@ -30,9 +30,19 @@ app.post("/api/submit_product", async (req, res) => {
     console.log(`Searching MongoDB for "${name}" (partial match allowed)...`);
 
     try {
+        const keywords = name
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(word => word.length > 2);
+
+        const regexConditions = keywords.map(word => ({
+        name: { $regex: word, $options: "i" }
+        }));
+
         const existingProducts = await ScraperResult.find({
-            name: { $regex: name, $options: "i" } 
+        $and: regexConditions
         });
+
 
         if (existingProducts.length > 0) {
             console.log(`Found ${existingProducts.length} matching products in MongoDB!`);
@@ -187,22 +197,33 @@ app.post("/api/user/products", authMiddleware, async (req, res) => {
         const user = await User.findById(req.user.userId);
         if (!user) return res.status(404).json({ message: "User not found." });
 
-        const existingMatch = await ScraperResult.findOne({
-            name: { $regex: name, $options: "i" }
+        const keywords = name
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(word => word.length > 2);
+
+        const regexConditions = keywords.map(word => ({
+        name: { $regex: word, $options: "i" }
+        }));
+
+        const existingMatch = await ScraperResult.find({
+        $and: regexConditions
         });
 
         let productToSave;
 
-        if (existingMatch) {
-            console.log("Using cached scraper result");
+        if (existingMatch.length > 0) {
+            const match = existingMatch[0]; // Grab first match
+            console.log("✅ Using cached scraper result:", match.name);
+
             productToSave = {
-                name: existingMatch.name,
-                risk: existingMatch.risk,
-                high: existingMatch.high,
-                med: existingMatch.med,
+                name: match.name,
+                risk: match.risk,
+                high: match.high,
+                med: match.med,
             };
         } else {
-            console.log("No cached result. Running scraper...");
+            console.log("🕵️ No cached result. Running scraper...");
             const scraperScript = path.join(__dirname, "../scraper/scraper.py");
 
             const output = await new Promise((resolve, reject) => {
@@ -217,6 +238,10 @@ app.post("/api/user/products", authMiddleware, async (req, res) => {
             const results = JSON.parse(output);
             const scraped = results[0];
 
+            if (!scraped) {
+                return res.status(404).json({ message: "Scraper returned no valid results." });
+            }
+
             await ScraperResult.create(scraped);
 
             productToSave = {
@@ -226,6 +251,7 @@ app.post("/api/user/products", authMiddleware, async (req, res) => {
                 med: scraped.med,
             };
         }
+
 
         user.products.push(productToSave);
         await user.save();
